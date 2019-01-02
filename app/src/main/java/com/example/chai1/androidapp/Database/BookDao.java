@@ -1,4 +1,4 @@
 package com.example.chai1.androidapp.Database;
 
-public class DatabaseHelper {
+public class BookDao {
 }
