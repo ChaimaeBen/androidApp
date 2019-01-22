@@ -1,4 +1,4 @@
-package com.androidtutorialpoint.horizontallistview;
+package com.example.chai1.androidapp;
 
 /**
  * Created by anonymous on 11/4/16.
@@ -16,30 +16,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.chai1.androidapp.Models.Book;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class HorizontalListViewFragment extends Fragment {
 
-    ArrayList<Fruit> listitems = new ArrayList<>();
+    ArrayList<Book> listitems = new ArrayList<Book>();
     RecyclerView MyRecyclerView;
-    String Fruits[] = {"Mango","Apple","Grapes","Papaya","WaterMelon"};
-    int  Images[] = {R.drawable.mango,R.drawable.apple,R.drawable.grapes,R.drawable.papaya,R.drawable.watermelon};
-
+    final Book book = new Book();
+    String names[];
+    int  Images[];
+    private bookClient client;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        listitems.clear();
-        for(int i =0;i<Fruits.length;i++){
-            Fruit item = new Fruit();
-            item.setCardName(Fruits[i]);
-            item.setImageResourceId(Images[i]);
-            item.setIsfav(0);
-            item.setIsturned(0);
-            listitems.add(item);
-        }
-        getActivity().setTitle("Fruit List");
+        client = new bookClient();
+listitems.clear();
+
+
+
     }
 
     @Override
@@ -66,30 +74,35 @@ public class HorizontalListViewFragment extends Fragment {
     }
 
     public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
-        private ArrayList<Fruit> list;
+        private ArrayList<Book> list;
 
-        public MyAdapter(ArrayList<Fruit> Data) {
+        public MyAdapter(ArrayList<Book> Data) {
             list = Data;
         }
 
         @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
-            // create a new view
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.recycle_items, parent, false);
             MyViewHolder holder = new MyViewHolder(view);
+
             return holder;
         }
 
         @Override
         public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-            holder.titleTextView.setText(list.get(position).getCardName());
-            holder.coverImageView.setImageResource(list.get(position).getImageResourceId());
-            holder.coverImageView.setTag(list.get(position).getImageResourceId());
+            holder.titleTextView.setText(list.get(position).getTitle());
+            holder.coverImageView.setImageURI(Uri.parse(list.get(position).getCoverUrl()));
+            holder.coverImageView.setTag(list.get(position).getCoverUrl());
             holder.likeImageView.setTag(R.drawable.ic_like);
+            Picasso.with(getContext()).load(Uri.parse(book.getCoverUrl())).error(R.drawable.ic_nocover).into(holder.coverImageView);
 
         }
+
+
+
 
         @Override
         public int getItemCount() {
@@ -144,7 +157,6 @@ public class HorizontalListViewFragment extends Fragment {
                     Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                             "://" + getResources().getResourcePackageName(coverImageView.getId())
                             + '/' + "drawable" + '/' + getResources().getResourceEntryName((int)coverImageView.getTag()));
-
 
                     Intent shareIntent = new Intent();
                     shareIntent.setAction(Intent.ACTION_SEND);

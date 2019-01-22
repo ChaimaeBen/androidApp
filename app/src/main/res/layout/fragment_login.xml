@@ -2,40 +2,45 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginForm"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
 
+    android:background="@drawable/gradient"
     tools:context=".LoginFragment">
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/email_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="219dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
         android:background="#11000000"
         android:drawableLeft="@drawable/ic_action_profile"
         android:ems="10"
         android:hint="email"
         android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="219dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/password_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="38dp"
         android:background="#11000000"
         android:drawableLeft="@drawable/ic_action_password"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="282dp" />
+        app:layout_constraintStart_toStartOf="@+id/email_id"
+        app:layout_constraintTop_toBottomOf="@+id/email_id" />
 
 
     <TextView
@@ -44,28 +49,34 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp"
         android:text="not registered yet? create your account"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="466dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/login_btn"
+        android:id="@+id/log_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
 
+        android:layout_marginTop="40dp"
         android:text=" login"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="347dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_id" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="42dp"
         android:src="@mipmap/ic_launcher_round"
-        tools:layout_editor_absoluteX="156dp"
-        tools:layout_editor_absoluteY="105dp" />
+        app:layout_constraintBottom_toTopOf="@+id/email_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

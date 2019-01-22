@@ -1,4 +1,4 @@
-package org.example.we04room.database;
+package com.example.chai1.androidapp.Database;
 
 import java.util.List;
 
